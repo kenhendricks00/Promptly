@@ -26,13 +26,13 @@
 
 # 🌟 Key Features
 - **Modern Glassmorphic UI**: High-fidelity frosted glass appearance with animated gradient backgrounds, powered by **Lucide Icons** for a crisp, professional look.
-- **Community Library**: Browse and import curated prompts directly into your personal collection with one click.
+- **Community Library**: Browse and import curated prompts from `community-prompts.json` directly into your personal collection with one click.
 - **Smart Sharing**: Generate permanent, client-side sharing links via `ken.tools` that allow others to import your prompts instantly.
 - **Search & Filter Flow**: Find prompts quickly by title or tag using the custom search bar and folder organization.
 - **One-Click Copy**: Simply click a prompt to copy it. Supports **{{variables}}** for dynamic template filling before copying.
 - **Data Portability**: Full Export and Import functionality allows you to backup you prompts as `.json` or sync them across devices.
 - **Privacy First**: Fully local operation using `browser.storage.local`. All sharing is client-side; no data is stored on external servers.
-- **Cross-Browser Core**: Uses `webextension-polyfill` over Manifest V3 ensuring uniform compatibility between Chrome (`chrome.*`) and Firefox (`browser.*`).
+- **Platform-Specific Builds**: Organized into `platform/chromium` and `platform/firefox` directories, ensuring uniform compatibility between Chrome (`chrome.*`) and Firefox (`browser.*`) via `webextension-polyfill`.
 
 # 📋 Usage Instructions
 
@@ -53,13 +53,13 @@ To start using Promptly, load it manually into your browser:
 ### 🦊 Firefox
 1. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
 2. Click the **Load Temporary Add-on...** button
-3. Select the `manifest.json` file inside the `extension/` folder
+3. Select the `manifest.json` file inside the `platform/firefox/` folder
 
 ### 🌐 Google Chrome
 1. Open Chrome and navigate to `chrome://extensions/`
 2. Enable **Developer mode** in the top right corner
 3. Click the **Load unpacked** button
-4. Select the inner `extension/` folder from this directory
+4. Select the `platform/chromium/` folder from this directory
 
 # 💬 Support & Contributions
 
