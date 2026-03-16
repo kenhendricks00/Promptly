@@ -1,65 +1,48 @@
-## v1.3.0 (01/25/2026)
+## v1.1.0 (03/16/2026)
 
 #### **🚀 New Features**
-- **`FMHY Notes Display`**  
-    - The extension popup now shows relevant notes from the FMHY wiki when visiting mapped websites.  
-- **`Live Note Fetching`**  
-    - Notes are fetched from the official FMHY GitHub repository and cached for performance.  
-- **`Comprehensive Domain Mapping`**  
-    - 80+ domain mappings included (1337x, mobilism, yts, spicetify, movie-web, audiobookbay, etc.).  
-- **`Pattern-Based Matching`**  
-    - Support for sites with multiple TLDs (e.g., `yts.mx`, `yts.rs`, `yts.lt` all show the same note).  
-- **`Markdown Rendering`**  
-    - Notes are rendered with support for links, lists, bold, italic, and code formatting.  
-- **`AMOLED Theme`**  
-    - Added pure black AMOLED theme option for OLED displays, matching fmhy.net's theme options.  
-- **`Unsafe Site Reasons`**  
-    - Warning page and popup now display the reason why a site is flagged as unsafe.  
-    - Reasons are fetched from the FMHY Filterlist repository and include clickable evidence links.  
-- **`Multi-Language Support (i18n)`**  
-    - Added internationalization support for 7 languages: English, Spanish, Russian, German, Portuguese, French, and Japanese.  
-    - All UI elements in popup, warning page, and settings page are now translatable.  
-    - Extension automatically uses the browser's language preference.  
-    - Manual language selector added to settings page for user override.  
-- **`Welcome Page`**  
-    - New welcome page opens automatically on first install.  
-    - Guides users through pinning the extension, how it works, and customizing settings.  
-    - Fully translated in all 7 supported languages.  
-- **`Manual Filterlist Update`**  
-    - Added "Update Now" button in settings to manually trigger filterlist updates.  
+- **`Platform-Specific Organization`**  
+    - Reorganized the extension structure to include dedicated `platform/chromium` and `platform/firefox` directories.  
+    - This allows for easier maintenance and platform-specific manifest configurations while sharing core source code.  
+- **`Enhanced Documentation`**  
+    - Comprehensive update to `README.md` with accurate manual installation instructions for all supported browsers.  
+    - Added project walkthroughs and technical documentation for improved maintainability.  
 
 #### **🔧 Enhancements**
-- **`Improved Message Handling`**  
-    - Converted async message listener to Promise-based pattern for better cross-browser compatibility.  
-- **`Better Popup Display`**  
-    - Notes appear in a styled collapsible section below the site status.  
-- **`Reason Display Styling`**  
-    - Popup shows reasons in a dedicated container with alert-triangle icon matching the notes feature.  
-    - Warning page displays reasons in a styled box with clickable links.  
-- **`Updated Documentation Website`**  
-    - Added Dark Reader support to prevent forced dark mode on docs site.  
-    - Replaced emoji icons with Lucide SVG icons for consistent, professional look.  
-    - Added new feature cards for Unsafe Site Reasons and FMHY Notes.  
-    - Improved mobile responsiveness with hamburger menu navigation.  
-    - Fixed blurry rendering on mobile devices.  
-
-#### **🐞 Bug Fixes**
-- **`Fixed Async Response Handling`**  
-    - Resolved issue where async message listeners returned `Promise<false>` instead of keeping the channel open.  
-- **`Fixed Markdown Formatting`**  
-    - Popup markdown parser now properly removes duplicate headers and handles paragraphs correctly.  
-- **`Fixed Update Frequency Setting`**  
-    - Resolved issue where changing update frequency (Daily/Weekly/Monthly) wasn't being applied correctly.  
-    - Background script now reads from the correct storage location.  
-- **`Fixed Reason Not Displaying`**  
-    - Resolved issue where unsafe site reasons were not being passed to the warning page.  
-    - Added fallback to fetch reasons from URL if storage is empty.  
+- **`Unified Cross-Browser Core`**  
+    - Fully integrated `webextension-polyfill` to ensure seamless operation across Chrome (`chrome.*`) and Firefox (`browser.*`) APIs.  
+- **`Community Integration`**  
+    - Improved fetching and importing of curated prompts from the `community-prompts.json` library.  
 
 #### **🔍 Technical Details**
-- **`New Files`**  
-    - `notes-mapping.js` – Standalone reference file for domain-to-note mappings.  
+- **`New Directories`**  
+    - `platform/chromium/` – Contains Chrome-specific `manifest.json`.  
+    - `platform/firefox/` – Contains Firefox-specific `manifest.json`.  
 - **`Modified Files`**  
-    - `background.js` – Added notes mapping, fetch/cache logic, `getNoteForSite` message handler, and async `getReasonForDomain` function.  
-    - `index.html` – Added note and reason display sections with CSS styling.  
-    - `index.js` – Added markdown parser, note fetching logic, and reason display with clickable links.  
-    - `warning-page.html` – Added CSS for clickable links in reason text.
+    - `README.md` – Rewritten to reflect new project architecture and installation flows.  
+    - `CHANGELOG.md` – Initialized and refined to track Promptly developments.  
+
+***
+
+## v1.0.0 (03/16/2026)
+
+#### **🚀 New Features**
+- **`Modern Glassmorphic UI`**  
+    - High-fidelity frosted glass appearance with animated gradient backgrounds and Lucide Icons integration.  
+- **`Advanced Prompt Library`**  
+    - Create, save, and organize AI prompts with custom tags and a powerful search/filter system.  
+- **`Dynamic Variables`**  
+    - Full support for `{{variables}}` within prompts, allowing users to fill in templates before copying.  
+- **`Community Library`**  
+    - One-click import for curated high-quality prompts from a built-in community collection.  
+- **`Data Portability`**  
+    - Complete JSON-based Import and Export functionality for local backups and multi-device sync.  
+- **`Privacy First Architecture`**  
+    - Works entirely offline using `browser.storage.local`. No external servers or telemetry.  
+
+#### **🔍 Technical Details**
+- **`Core Files`**  
+    - `src/popup/` – HTML/CSS/JS for the main extension interface.  
+    - `src/background/` – Service worker logic for background tasks and message handling.  
+    - `src/lib/` – Modular utility functions and polyfills.  
+    - `community-prompts.json` – The source-of-truth for initial curated community prompts.
