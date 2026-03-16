@@ -72,7 +72,7 @@ jobs:
           cp -r src/* dist/chromium/
           cp platform/chromium/manifest.json dist/chromium/manifest.json
           cd dist/chromium
-          zip -r ../FMHY-SafeGuard_${{ env.VERSION }}.chromium.zip ./*
+          zip -r ../Promptly_${{ env.VERSION }}.chromium.zip ./*
           cd ../..
 
       - name: Build Firefox Extension
