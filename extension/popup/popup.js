@@ -1076,3 +1076,376 @@ function updateKbFocus(items) {
     console.error("Share import error:", err);
   }
 })();
+
+// ─── COMMUNITY LIBRARY ────────────────────────────────
+
+const COMMUNITY_URL =
+  "https://raw.githubusercontent.com/kenhendricks00/Promptly/main/community-prompts.json";
+
+let communityData = null;
+let communityCategory = "all";
+let communitySearchText = "";
+
+// DOM
+const communityBtn = document.getElementById("community-btn");
+const communityModal = document.getElementById("community-modal");
+const communityCloseBtn = document.getElementById("community-close-btn");
+const communityRefreshBtn = document.getElementById(
+  "community-refresh-btn"
+);
+const communitySearchInput = document.getElementById("community-search");
+const communityCategories = document.getElementById(
+  "community-categories"
+);
+const communityListEl = document.getElementById("community-list");
+const communityLoading = document.getElementById("community-loading");
+const communityError = document.getElementById("community-error");
+const communityRetryBtn = document.getElementById("community-retry-btn");
+const communityCountEl = document.getElementById("community-count");
+
+// Open community modal
+communityBtn.addEventListener("click", () => {
+  communityModal.classList.remove("hidden");
+  if (!communityData) {
+    fetchCommunityPrompts();
+  } else {
+    renderCommunityPrompts();
+  }
+});
+
+communityCloseBtn.addEventListener("click", () =>
+  communityModal.classList.add("hidden")
+);
+
+communityModal.addEventListener("click", (e) => {
+  if (e.target === communityModal) communityModal.classList.add("hidden");
+});
+
+communityRefreshBtn.addEventListener("click", () => {
+  communityData = null;
+  fetchCommunityPrompts();
+});
+
+communityRetryBtn.addEventListener("click", () => {
+  fetchCommunityPrompts();
+});
+
+communitySearchInput.addEventListener("input", (e) => {
+  communitySearchText = e.target.value;
+  renderCommunityPrompts();
+});
+
+// Fetch from GitHub
+async function fetchCommunityPrompts() {
+  communityLoading.classList.remove("hidden");
+  communityError.classList.add("hidden");
+  communityListEl.innerHTML = "";
+  communityCategories.innerHTML = "";
+
+  try {
+    const response = await fetch(COMMUNITY_URL, {
+      cache: "no-cache",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    communityData = await response.json();
+
+    // Cache locally for offline fallback
+    await browser.storage.local.set({
+      communityCache: communityData,
+      communityCacheTime: Date.now(),
+    });
+
+    renderCommunityCategories();
+    renderCommunityPrompts();
+  } catch (err) {
+    console.error("Failed to fetch community prompts:", err);
+
+    // Try loading from cache
+    try {
+      const cached = await browser.storage.local.get([
+        "communityCache",
+        "communityCacheTime",
+      ]);
+      if (cached.communityCache) {
+        communityData = cached.communityCache;
+        renderCommunityCategories();
+        renderCommunityPrompts();
+        showToast("Loaded cached community prompts (offline)");
+      } else {
+        communityError.classList.remove("hidden");
+      }
+    } catch (cacheErr) {
+      communityError.classList.remove("hidden");
+    }
+  } finally {
+    communityLoading.classList.add("hidden");
+  }
+}
+
+// Render category pills
+function renderCommunityCategories() {
+  if (!communityData) return;
+
+  communityCategories.innerHTML = "";
+
+  // "All" pill
+  const allPill = document.createElement("button");
+  allPill.className =
+    "category-pill" + (communityCategory === "all" ? " active" : "");
+  allPill.innerHTML = '<span class="cat-icon">📁</span> All';
+  allPill.addEventListener("click", () => {
+    communityCategory = "all";
+    renderCommunityCategories();
+    renderCommunityPrompts();
+  });
+  communityCategories.appendChild(allPill);
+
+  (communityData.categories || []).forEach((cat) => {
+    const pill = document.createElement("button");
+    pill.className =
+      "category-pill" +
+      (communityCategory === cat.id ? " active" : "");
+    pill.innerHTML = `<span class="cat-icon">${cat.icon}</span> ${cat.name}`;
+    pill.addEventListener("click", () => {
+      communityCategory = cat.id;
+      renderCommunityCategories();
+      renderCommunityPrompts();
+    });
+    communityCategories.appendChild(pill);
+  });
+}
+
+// Render community prompts list
+function renderCommunityPrompts() {
+  if (!communityData) return;
+
+  communityListEl.innerHTML = "";
+  const search = communitySearchText.toLowerCase();
+
+  const filtered = (communityData.prompts || []).filter((p) => {
+    const matchesCategory =
+      communityCategory === "all" || p.category === communityCategory;
+    const matchesSearch =
+      !search ||
+      p.title.toLowerCase().includes(search) ||
+      p.body.toLowerCase().includes(search) ||
+      p.tags.some((t) => t.toLowerCase().includes(search));
+    return matchesCategory && matchesSearch;
+  });
+
+  communityCountEl.textContent = `${filtered.length} prompt${filtered.length !== 1 ? "s" : ""} available`;
+
+  if (filtered.length === 0) {
+    communityListEl.innerHTML =
+      '<div class="community-empty">No community prompts match your search.</div>';
+    return;
+  }
+
+  // Check which ones are already imported
+  const existingBodies = new Set(prompts.map((p) => p.body.trim()));
+
+  filtered.forEach((cp) => {
+    const isImported = existingBodies.has(cp.body.trim());
+
+    const item = document.createElement("div");
+    item.className = "community-item";
+
+    // Header
+    const header = document.createElement("div");
+    header.className = "community-item-header";
+
+    const info = document.createElement("div");
+    info.className = "community-item-info";
+
+    const title = document.createElement("div");
+    title.className = "community-item-title";
+    title.textContent = cp.title;
+
+    const author = document.createElement("div");
+    author.className = "community-item-author";
+    author.textContent = `by ${cp.author || "Community"}`;
+
+    info.appendChild(title);
+    info.appendChild(author);
+    header.appendChild(info);
+
+    // Body preview
+    const body = document.createElement("div");
+    body.className = "community-item-body";
+    body.textContent = cp.body;
+
+    // Footer
+    const footer = document.createElement("div");
+    footer.className = "community-item-footer";
+
+    const tags = document.createElement("div");
+    tags.className = "community-item-tags";
+    (cp.tags || []).forEach((t) => {
+      const tagSpan = document.createElement("span");
+      tagSpan.className = "tag";
+      tagSpan.textContent = t;
+      tags.appendChild(tagSpan);
+    });
+
+    const actions = document.createElement("div");
+    actions.className = "community-item-actions";
+
+    const previewBtn = document.createElement("button");
+    previewBtn.className = "community-preview-btn";
+    previewBtn.textContent = "Preview";
+    previewBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openCommunityPreview(cp);
+    });
+
+    const addBtnEl = document.createElement("button");
+    addBtnEl.className =
+      "community-add-btn" + (isImported ? " added" : "");
+    addBtnEl.textContent = isImported ? "✓ Added" : "+ Add";
+    addBtnEl.disabled = isImported;
+    addBtnEl.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (!isImported) {
+        importCommunityPrompt(cp);
+        addBtnEl.textContent = "✓ Added";
+        addBtnEl.classList.add("added");
+        addBtnEl.disabled = true;
+      }
+    });
+
+    actions.appendChild(previewBtn);
+    actions.appendChild(addBtnEl);
+
+    footer.appendChild(tags);
+    footer.appendChild(actions);
+
+    item.appendChild(header);
+    item.appendChild(body);
+    item.appendChild(footer);
+
+    communityListEl.appendChild(item);
+  });
+}
+
+// Import a community prompt into local library
+function importCommunityPrompt(cp) {
+  const newPrompt = {
+    id: "community-" + Date.now().toString(),
+    title: cp.title,
+    body: cp.body,
+    tags: [...(cp.tags || []), "community"],
+    folderId: "",
+    favorite: false,
+    useCount: 0,
+    createdAt: Date.now(),
+    history: [],
+    source: "community",
+    originalAuthor: cp.author || "Community",
+  };
+
+  prompts.unshift(newPrompt);
+  sortPrompts();
+  saveAll();
+  renderAll();
+  showToast(`Added: ${cp.title}`);
+}
+
+// Preview a community prompt in a detail view
+function openCommunityPreview(cp) {
+  // Reuse the share modal structure as a preview
+  const previewModal = document.createElement("div");
+  previewModal.className = "modal";
+  previewModal.style.zIndex = "150";
+
+  const content = document.createElement("div");
+  content.className = "modal-content glass-panel";
+
+  const titleEl = document.createElement("h2");
+  titleEl.textContent = cp.title;
+
+  const bodyEl = document.createElement("div");
+  bodyEl.className = "preview-body";
+  bodyEl.textContent = cp.body;
+
+  const meta = document.createElement("div");
+  meta.className = "preview-meta";
+
+  (cp.tags || []).forEach((t) => {
+    const tagSpan = document.createElement("span");
+    tagSpan.className = "tag";
+    tagSpan.textContent = t;
+    meta.appendChild(tagSpan);
+  });
+
+  const authorSpan = document.createElement("span");
+  authorSpan.className = "preview-author";
+  authorSpan.textContent = `by ${cp.author || "Community"}`;
+  meta.appendChild(authorSpan);
+
+  const charInfo = document.createElement("div");
+  charInfo.className = "char-count";
+  charInfo.textContent = `${cp.body.length} chars · ~${estimateTokens(cp.body)} tokens`;
+
+  const actionsDiv = document.createElement("div");
+  actionsDiv.className = "modal-actions";
+
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "glass-btn";
+  closeBtn.textContent = "Close";
+  closeBtn.addEventListener("click", () => previewModal.remove());
+
+  const copyBtn = document.createElement("button");
+  copyBtn.className = "glass-btn primary";
+  copyBtn.textContent = "Copy Prompt";
+  copyBtn.addEventListener("click", async () => {
+    await copyToClipboard(cp.body, cp.title);
+  });
+
+  const existingBodies = new Set(prompts.map((p) => p.body.trim()));
+  const isImported = existingBodies.has(cp.body.trim());
+
+  const importBtn = document.createElement("button");
+  importBtn.className =
+    "glass-btn primary" + (isImported ? " added" : "");
+  importBtn.textContent = isImported ? "✓ Added" : "+ Add to Library";
+  importBtn.disabled = isImported;
+  if (!isImported) {
+    importBtn.style.background = "linear-gradient(135deg, #06d6a0, #118ab2)";
+  } else {
+    importBtn.style.background = "#4caf50";
+    importBtn.style.opacity = "0.7";
+  }
+  importBtn.addEventListener("click", () => {
+    if (!isImported) {
+      importCommunityPrompt(cp);
+      importBtn.textContent = "✓ Added";
+      importBtn.disabled = true;
+      importBtn.style.background = "#4caf50";
+      importBtn.style.opacity = "0.7";
+      // Also update the main list button
+      renderCommunityPrompts();
+    }
+  });
+
+  actionsDiv.appendChild(closeBtn);
+  actionsDiv.appendChild(copyBtn);
+  actionsDiv.appendChild(importBtn);
+
+  content.appendChild(titleEl);
+  content.appendChild(bodyEl);
+  content.appendChild(meta);
+  content.appendChild(charInfo);
+  content.appendChild(actionsDiv);
+  previewModal.appendChild(content);
+
+  // Close on backdrop click
+  previewModal.addEventListener("click", (e) => {
+    if (e.target === previewModal) previewModal.remove();
+  });
+
+  document.body.appendChild(previewModal);
+}

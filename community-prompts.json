@@ -1,0 +1,146 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-03-16",
+  "categories": [
+    {
+      "id": "coding",
+      "name": "Coding",
+      "icon": "💻"
+    },
+    {
+      "id": "writing",
+      "name": "Writing",
+      "icon": "✍️"
+    },
+    {
+      "id": "productivity",
+      "name": "Productivity",
+      "icon": "⚡"
+    },
+    {
+      "id": "learning",
+      "name": "Learning",
+      "icon": "📚"
+    },
+    {
+      "id": "creative",
+      "name": "Creative",
+      "icon": "🎨"
+    },
+    {
+      "id": "business",
+      "name": "Business",
+      "icon": "💼"
+    }
+  ],
+  "prompts": [
+    {
+      "id": "community-001",
+      "title": "Code Review Assistant",
+      "body": "You are an expert code reviewer. Review the following {{language}} code for:\n\n1. **Bugs & Logic Errors** — Identify any incorrect logic or potential runtime errors.\n2. **Performance** — Suggest optimizations where applicable.\n3. **Readability** — Recommend naming, formatting, and structural improvements.\n4. **Security** — Flag any vulnerabilities or unsafe patterns.\n5. **Best Practices** — Suggest idiomatic improvements for the language.\n\nProvide your feedback in a structured format with severity levels (Critical, Warning, Suggestion).\n\nCode to review:\n```\n{{code}}\n```",
+      "tags": ["coding", "review", "best-practices"],
+      "category": "coding",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-002",
+      "title": "Explain Like I'm 5",
+      "body": "Explain the following concept in the simplest possible terms, as if you're teaching a 5-year-old. Use analogies, everyday examples, and avoid jargon entirely. If the concept has multiple parts, break it down step by step.\n\nConcept: {{concept}}",
+      "tags": ["learning", "explanation", "simple"],
+      "category": "learning",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-003",
+      "title": "Blog Post Generator",
+      "body": "Write a comprehensive blog post about {{topic}}.\n\n**Requirements:**\n- Tone: {{tone}} (e.g., professional, casual, witty)\n- Target audience: {{audience}}\n- Length: ~{{wordCount}} words\n- Include an engaging hook in the introduction\n- Use subheadings (H2, H3) for structure\n- Include actionable takeaways\n- End with a compelling call-to-action\n\nFormat the output in Markdown.",
+      "tags": ["writing", "blog", "content"],
+      "category": "writing",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-004",
+      "title": "Debug Helper",
+      "body": "I'm encountering an issue in my {{language}} project. Help me debug it step by step.\n\n**Error message:**\n{{error}}\n\n**Relevant code:**\n```\n{{code}}\n```\n\n**What I've already tried:**\n{{attempts}}\n\nPlease:\n1. Explain what's causing the error\n2. Provide a corrected version of the code\n3. Explain why the fix works\n4. Suggest how to prevent this issue in the future",
+      "tags": ["coding", "debugging", "help"],
+      "category": "coding",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-005",
+      "title": "Meeting Summary & Action Items",
+      "body": "Summarize the following meeting notes into a clean, organized format:\n\n**Meeting Notes:**\n{{notes}}\n\n**Output format:**\n## Meeting Summary\n- Date: {{date}}\n- Attendees: {{attendees}}\n- Duration: {{duration}}\n\n## Key Discussion Points\n(Bullet points of main topics discussed)\n\n## Decisions Made\n(Clear list of decisions)\n\n## Action Items\n| Task | Owner | Deadline |\n|------|-------|----------|\n\n## Follow-up Items\n(Items that need further discussion)",
+      "tags": ["productivity", "meetings", "summary"],
+      "category": "productivity",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-006",
+      "title": "Brainstorm Ideas",
+      "body": "Generate {{count}} creative and diverse ideas for the following:\n\n**Topic/Challenge:** {{topic}}\n**Constraints:** {{constraints}}\n**Target audience:** {{audience}}\n\nFor each idea:\n1. Give it a catchy name\n2. Write a 2-3 sentence description\n3. List one key advantage\n4. Rate its feasibility (Easy / Medium / Hard)\n\nInclude a mix of safe/conventional ideas and bold/unconventional ones.",
+      "tags": ["creative", "brainstorming", "ideas"],
+      "category": "creative",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-007",
+      "title": "Email Composer",
+      "body": "Write a professional email with the following details:\n\n**Purpose:** {{purpose}}\n**Recipient:** {{recipient}}\n**Tone:** {{tone}} (formal, friendly, persuasive, apologetic)\n**Key points to include:**\n{{keyPoints}}\n\nThe email should:\n- Have a clear, specific subject line\n- Open with appropriate context\n- Be concise but thorough\n- Include a clear call-to-action\n- Close professionally\n\nProvide the email with Subject line included.",
+      "tags": ["business", "email", "communication"],
+      "category": "business",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-008",
+      "title": "Unit Test Generator",
+      "body": "Generate comprehensive unit tests for the following {{language}} function/class:\n\n```\n{{code}}\n```\n\n**Testing framework:** {{framework}}\n\nInclude tests for:\n1. Happy path (normal expected inputs)\n2. Edge cases (empty inputs, boundary values)\n3. Error handling (invalid inputs, exceptions)\n4. Type checking where applicable\n\nUse descriptive test names that explain what's being tested. Add brief comments explaining the purpose of non-obvious tests.",
+      "tags": ["coding", "testing", "quality"],
+      "category": "coding",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-009",
+      "title": "Learn Any Topic Fast",
+      "body": "I want to learn {{topic}} efficiently. Create a structured learning plan:\n\n**My current level:** {{level}} (beginner/intermediate/advanced)\n**Time available:** {{timePerWeek}} hours per week\n**Goal:** {{goal}}\n\nPlease provide:\n1. **Prerequisites** — What I should know first\n2. **Learning Roadmap** — Weekly breakdown with specific topics\n3. **Best Resources** — Books, courses, tutorials (free + paid)\n4. **Practice Projects** — Hands-on exercises for each phase\n5. **Milestones** — How to measure my progress\n6. **Common Pitfalls** — Mistakes to avoid as a learner",
+      "tags": ["learning", "study", "roadmap"],
+      "category": "learning",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-010",
+      "title": "Refactor My Code",
+      "body": "Refactor the following {{language}} code to improve its quality:\n\n```\n{{code}}\n```\n\n**Focus areas:** {{focus}} (e.g., readability, performance, DRY, SOLID principles)\n\nPlease:\n1. Show the refactored code\n2. Explain each change you made and why\n3. Note any trade-offs in your refactoring decisions\n4. Suggest any design patterns that could be beneficial\n5. Rate the improvement: before vs after",
+      "tags": ["coding", "refactoring", "clean-code"],
+      "category": "coding",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-011",
+      "title": "Storytelling Framework",
+      "body": "Help me craft a compelling story using the following framework:\n\n**Genre:** {{genre}}\n**Setting:** {{setting}}\n**Main character:** {{character}}\n**Central conflict:** {{conflict}}\n**Desired length:** {{length}}\n\nStructure the story with:\n1. **Hook** — An opening line that grabs attention\n2. **Setup** — Establish the world and character\n3. **Rising Action** — Build tension progressively\n4. **Climax** — The pivotal moment\n5. **Resolution** — A satisfying conclusion\n\nUse vivid sensory details and show, don't tell.",
+      "tags": ["creative", "writing", "storytelling"],
+      "category": "creative",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-012",
+      "title": "SWOT Analysis Generator",
+      "body": "Perform a detailed SWOT analysis for:\n\n**Subject:** {{subject}} (company, product, project, or idea)\n**Industry/Context:** {{context}}\n\nProvide:\n\n## Strengths (Internal Positives)\n- At least 5 specific strengths with brief explanations\n\n## Weaknesses (Internal Negatives)\n- At least 5 specific weaknesses with brief explanations\n\n## Opportunities (External Positives)\n- At least 5 specific opportunities with brief explanations\n\n## Threats (External Negatives)\n- At least 5 specific threats with brief explanations\n\n## Strategic Recommendations\n- 3 actionable strategies based on the analysis\n- Prioritize by impact and feasibility",
+      "tags": ["business", "analysis", "strategy"],
+      "category": "business",
+      "author": "kenhendricks00",
+      "downloads": 0
+    }
+  ]
+}
