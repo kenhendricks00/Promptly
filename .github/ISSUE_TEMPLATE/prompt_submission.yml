@@ -1,0 +1,53 @@
+name: 📥 Community Prompt Submission
+description: Suggest a new prompt to be included in the Promptly community library.
+title: "[SUBMISSION]: "
+labels: ["community-prompt"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to Promptly! Please fill out the form below to submit your prompt.
+  - type: input
+    id: title
+    attributes:
+      label: Prompt Title
+      description: A short, descriptive name for the prompt.
+      placeholder: e.g., Code Review Assistant
+    validations:
+      required: true
+  - type: textarea
+    id: body
+    attributes:
+      label: Prompt Body
+      description: Final text of the prompt. Use {{variable_name}} for smart variables.
+      placeholder: Act like a {{role}}...
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Choose the most relevant category.
+      options:
+        - Coding
+        - Writing
+        - Productivity
+        - Learning
+        - Creative
+        - Business
+    validations:
+      required: true
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated tags.
+      placeholder: coding, debugging, quality
+    validations:
+      required: true
+  - type: input
+    id: share_link
+    attributes:
+      label: Share Link (Optional)
+      description: If you've already generated a share link via the extension, paste it here.
+      placeholder: https://ken.tools/promptly/#import=...
