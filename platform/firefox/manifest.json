@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Promptly",
-  "version": "1.1.0",
+  "version": "1.1",
   "description": "Personal prompt library to save, organize, and copy AI prompts.",
   "permissions": [
     "storage",
@@ -45,7 +45,10 @@
       "id": "promptly@ken.tools",
       "strict_min_version": "109.0",
       "data_collection_permissions": {
-        "required": ["none"]
+        "required": [
+          "none"
+        ]
       }
+    }
   }
 }
