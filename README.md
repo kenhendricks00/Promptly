@@ -15,6 +15,12 @@
 # 🛡️ What is Promptly?
 
 **Promptly** is a personal, beautifully designed browser extension that lets you save, organize, and quickly copy/insert AI prompts from a clean popup UI. Compatible with both Chrome and Firefox, it works offline using local browser storage, keeping your prompt library accessible, searchable, and always ready.
+***
+
+<p align="center">
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/#"><img src="assets/firefox_addon_image.png" alt="Get Promptly for Firefox"></a>
+  <a href="https://chromewebstore.google.com/detail/#"><img src="assets/chrome_addon_image.png" alt="Get Promptly for Chrome"></a>
+</div>
 
 ***
 
