@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="extension/icons/icon-128.png" />
+  <img src="assets/banner.png" />
 </p>
 <div align="center">
   <a href="https://github.com/kenhendricks00/Promptly">
