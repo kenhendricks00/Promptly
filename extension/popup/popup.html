@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="../lib/browser-polyfill.js" defer></script>
+  <script src="popup.js" defer></script>
+</head>
+
+<body>
+  <!-- Glass Container -->
+  <div class="glass-container">
+    <div class="header">
+      <h1>Promptly</h1>
+      <button id="add-btn" title="Add Prompt">+</button>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search prompts...">
+    </div>
+
+    <div id="prompts-list" class="prompts-list">
+      <!-- Prompts will be dynamically inserted here -->
+    </div>
+
+    <!-- Settings / Export Import -->
+    <div class="footer">
+      <button id="export-btn" class="glass-btn text-btn">Export</button>
+      <label for="import-file" class="glass-btn text-btn" style="cursor: pointer;">Import</label>
+      <input type="file" id="import-file" accept=".json" class="hidden">
+    </div>
+  </div>
+
+  <!-- Add/Edit Prompt Modal -->
+  <div id="prompt-modal" class="modal hidden">
+    <div class="modal-content glass-panel">
+      <h2 id="modal-title">New Prompt</h2>
+      <input type="text" id="prompt-title" placeholder="Title" class="glass-input">
+      <textarea id="prompt-body" placeholder="Prompt content..." rows="5" class="glass-input"></textarea>
+      <input type="text" id="prompt-tags" placeholder="Tags (comma separated)" class="glass-input">
+      <div class="modal-actions">
+        <button id="cancel-btn" class="glass-btn">Cancel</button>
+        <button id="save-btn" class="glass-btn primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast hidden glass-panel">Copied to clipboard!</div>
+</body>
+
+</html>
