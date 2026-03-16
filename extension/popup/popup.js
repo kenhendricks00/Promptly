@@ -83,7 +83,11 @@ const toast = document.getElementById("toast");
 // ─── INIT ──────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", async () => {
   if (window.lucide) {
-    const observer = new MutationObserver(() => lucide.createIcons());
+    const observer = new MutationObserver(() => {
+      observer.disconnect();
+      lucide.createIcons();
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
     observer.observe(document.body, { childList: true, subtree: true });
     lucide.createIcons();
   }
