@@ -2,9 +2,9 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="popup.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="popup.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="../lib/browser-polyfill.js" defer></script>
   <script src="popup.js" defer></script>
 </head>
@@ -14,22 +14,64 @@
   <div class="glass-container">
     <div class="header">
       <h1>Promptly</h1>
-      <button id="add-btn" title="Add Prompt">+</button>
+      <div class="header-actions">
+        <button id="theme-toggle" title="Toggle Dark/Light Mode" class="icon-btn">
+          🌙
+        </button>
+        <button id="add-btn" title="Add Prompt">+</button>
+      </div>
     </div>
 
-    <div class="search-bar">
-      <input type="text" id="search-input" placeholder="Search prompts...">
+    <!-- Toolbar: Search + Filter -->
+    <div class="toolbar">
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search prompts..." />
+      </div>
+      <div class="filter-row">
+        <div id="folder-filter" class="filter-dropdown">
+          <select id="folder-select">
+            <option value="all">All Folders</option>
+          </select>
+        </div>
+        <div id="tag-filter" class="tag-filter-bar">
+          <!-- Tags populated dynamically -->
+        </div>
+      </div>
     </div>
 
+    <!-- Recent Prompts -->
+    <div id="recent-section" class="recent-section hidden">
+      <div class="section-label">Recently Used</div>
+      <div id="recent-list" class="recent-list">
+        <!-- Recent items here -->
+      </div>
+    </div>
+
+    <!-- Prompts List -->
     <div id="prompts-list" class="prompts-list">
       <!-- Prompts will be dynamically inserted here -->
     </div>
 
-    <!-- Settings / Export Import -->
+    <!-- Bulk Actions Bar -->
+    <div id="bulk-bar" class="bulk-bar hidden">
+      <span id="bulk-count">0 selected</span>
+      <div class="bulk-actions">
+        <button id="bulk-move-btn" class="glass-btn small">Move</button>
+        <button id="bulk-export-btn" class="glass-btn small">Export</button>
+        <button id="bulk-delete-btn" class="glass-btn small danger">
+          Delete
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
     <div class="footer">
       <button id="export-btn" class="glass-btn text-btn">Export</button>
-      <label for="import-file" class="glass-btn text-btn" style="cursor: pointer;">Import</label>
-      <input type="file" id="import-file" accept=".json" class="hidden">
+      <button id="manage-folders-btn" class="glass-btn text-btn">
+        Folders
+      </button>
+      <label for="import-file" class="glass-btn text-btn" style="cursor: pointer">Import</label>
+      <input type="file" id="import-file" accept=".json" class="hidden" />
     </div>
   </div>
 
@@ -37,18 +79,153 @@
   <div id="prompt-modal" class="modal hidden">
     <div class="modal-content glass-panel">
       <h2 id="modal-title">New Prompt</h2>
-      <input type="text" id="prompt-title" placeholder="Title" class="glass-input">
-      <textarea id="prompt-body" placeholder="Prompt content..." rows="5" class="glass-input"></textarea>
-      <input type="text" id="prompt-tags" placeholder="Tags (comma separated)" class="glass-input">
+      <input type="text" id="prompt-title" placeholder="Title" class="glass-input" />
+      <textarea id="prompt-body" placeholder="Prompt content... Use {{variable}} for template placeholders" rows="5"
+        class="glass-input"></textarea>
+      <div id="char-count" class="char-count">0 chars · ~0 tokens</div>
+      <input type="text" id="prompt-tags" placeholder="Tags (comma separated)" class="glass-input" />
+      <select id="prompt-folder" class="glass-input">
+        <option value="">No Folder</option>
+      </select>
+      <div class="modal-row">
+        <label class="checkbox-label">
+          <input type="checkbox" id="prompt-favorite" />
+          ⭐ Favorite
+        </label>
+      </div>
       <div class="modal-actions">
+        <button id="history-btn" class="glass-btn small hidden">
+          History
+        </button>
+        <div class="spacer"></div>
         <button id="cancel-btn" class="glass-btn">Cancel</button>
         <button id="save-btn" class="glass-btn primary">Save</button>
       </div>
     </div>
   </div>
 
+  <!-- Template Variables Modal -->
+  <div id="template-modal" class="modal hidden">
+    <div class="modal-content glass-panel">
+      <h2>Fill in Variables</h2>
+      <div id="template-fields"></div>
+      <div class="modal-actions">
+        <button id="template-cancel-btn" class="glass-btn">Cancel</button>
+        <button id="template-go-btn" class="glass-btn primary">
+          Copy
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Folder Manager Modal -->
+  <div id="folder-modal" class="modal hidden">
+    <div class="modal-content glass-panel">
+      <h2>Manage Folders</h2>
+      <div class="folder-input-row">
+        <input type="text" id="new-folder-input" placeholder="New folder name" class="glass-input" />
+        <button id="add-folder-btn" class="glass-btn primary small">
+          Add
+        </button>
+      </div>
+      <div id="folder-list" class="folder-list">
+        <!-- Folders here -->
+      </div>
+      <div class="modal-actions">
+        <button id="folder-close-btn" class="glass-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Version History Modal -->
+  <div id="history-modal" class="modal hidden">
+    <div class="modal-content glass-panel">
+      <h2>Version History</h2>
+      <div id="history-list" class="history-list">
+        <!-- Versions here -->
+      </div>
+      <div class="modal-actions">
+        <button id="history-close-btn" class="glass-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Move to Folder Modal -->
+  <div id="move-modal" class="modal hidden">
+    <div class="modal-content glass-panel">
+      <h2>Move to Folder</h2>
+      <select id="move-folder-select" class="glass-input">
+        <option value="">No Folder</option>
+      </select>
+      <div class="modal-actions">
+        <button id="move-cancel-btn" class="glass-btn">Cancel</button>
+        <button id="move-confirm-btn" class="glass-btn primary">
+          Move
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div id="share-modal" class="modal hidden">
+    <div class="modal-content glass-panel">
+      <h2>Share Prompt</h2>
+      <p class="share-desc">
+        Copy the link below to share this prompt with others:
+      </p>
+      <textarea id="share-link" class="glass-input" rows="3" readonly></textarea>
+      <div class="modal-actions">
+        <button id="share-close-btn" class="glass-btn">Close</button>
+        <button id="share-copy-btn" class="glass-btn primary">
+          Copy Link
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Onboarding Overlay -->
+  <div id="onboarding" class="modal hidden">
+    <div class="modal-content glass-panel onboarding-panel">
+      <h2>👋 Welcome to Promptly!</h2>
+      <div class="onboarding-steps">
+        <div class="onboarding-step">
+          <span class="step-icon">➕</span>
+          <p>
+            Click the <strong>+</strong> button to create your first
+            prompt.
+          </p>
+        </div>
+        <div class="onboarding-step">
+          <span class="step-icon">📋</span>
+          <p>Click any prompt to <strong>copy</strong> it instantly.</p>
+        </div>
+        <div class="onboarding-step">
+          <span class="step-icon">🗂️</span>
+          <p>
+            Organize with <strong>folders</strong>,
+            <strong>tags</strong>, and <strong>favorites</strong>.
+          </p>
+        </div>
+        <div class="onboarding-step">
+          <span class="step-icon">✨</span>
+          <p>
+            Use <strong>{{variables}}</strong> for reusable template
+            prompts.
+          </p>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="onboarding-close-btn" class="glass-btn primary">
+          Get Started
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
-  <div id="toast" class="toast hidden glass-panel">Copied to clipboard!</div>
+  <div id="toast" class="toast hidden glass-panel">
+    Copied to clipboard!
+  </div>
 </body>
 
 </html>
