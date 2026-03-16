@@ -1205,7 +1205,7 @@ function renderCommunityCategories() {
   const allPill = document.createElement("button");
   allPill.className =
     "category-pill" + (communityCategory === "all" ? " active" : "");
-  allPill.innerHTML = '<span class="cat-icon"><i data-lucide="folder" class="icon-sm" style="width: 14px; height: 14px;"></i></span> All';
+  allPill.innerHTML = '<span class="cat-icon"><i data-lucide="folder" class="icon-sm"></i></span> All';
   allPill.addEventListener("click", () => {
     communityCategory = "all";
     renderCommunityCategories();
@@ -1218,7 +1218,7 @@ function renderCommunityCategories() {
     pill.className =
       "category-pill" +
       (communityCategory === cat.id ? " active" : "");
-    pill.innerHTML = `<span class="cat-icon"><i data-lucide="${cat.icon}" class="icon-sm" style="width: 14px; height: 14px;"></i></span> ${cat.name}`;
+    pill.innerHTML = `<span class="cat-icon"><i data-lucide="${cat.icon}" class="icon-sm"></i></span> ${cat.name}`;
     pill.addEventListener("click", () => {
       communityCategory = cat.id;
       renderCommunityCategories();
@@ -1305,7 +1305,7 @@ function renderCommunityPrompts() {
 
     const previewBtn = document.createElement("button");
     previewBtn.className = "community-preview-btn";
-    previewBtn.textContent = "Preview";
+    previewBtn.innerHTML = '<i data-lucide="eye" class="icon-sm"></i> Preview';
     previewBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       openCommunityPreview(cp);
@@ -1314,13 +1314,15 @@ function renderCommunityPrompts() {
     const addBtnEl = document.createElement("button");
     addBtnEl.className =
       "community-add-btn" + (isImported ? " added" : "");
-    addBtnEl.textContent = isImported ? "✓ Added" : "+ Add";
+    addBtnEl.innerHTML = isImported 
+      ? '<i data-lucide="check" class="icon-sm"></i> Added' 
+      : '<i data-lucide="plus" class="icon-sm"></i> Add';
     addBtnEl.disabled = isImported;
     addBtnEl.addEventListener("click", (e) => {
       e.stopPropagation();
       if (!isImported) {
         importCommunityPrompt(cp);
-        addBtnEl.textContent = "✓ Added";
+        addBtnEl.innerHTML = '<i data-lucide="check" class="icon-sm"></i> Added';
         addBtnEl.classList.add("added");
         addBtnEl.disabled = true;
       }
@@ -1409,7 +1411,7 @@ function openCommunityPreview(cp) {
 
   const copyBtn = document.createElement("button");
   copyBtn.className = "glass-btn primary";
-  copyBtn.textContent = "Copy Prompt";
+  copyBtn.innerHTML = '<i data-lucide="copy" class="icon-sm"></i> Copy Prompt';
   copyBtn.addEventListener("click", async () => {
     await copyToClipboard(cp.body, cp.title);
   });
@@ -1420,7 +1422,9 @@ function openCommunityPreview(cp) {
   const importBtn = document.createElement("button");
   importBtn.className =
     "glass-btn primary" + (isImported ? " added" : "");
-  importBtn.textContent = isImported ? "✓ Added" : "+ Add to Library";
+  importBtn.innerHTML = isImported 
+    ? '<i data-lucide="check" class="icon-sm"></i> Added' 
+    : '<i data-lucide="plus" class="icon-sm"></i> Add to Library';
   importBtn.disabled = isImported;
   if (!isImported) {
     importBtn.style.background = "linear-gradient(135deg, #06d6a0, #118ab2)";
@@ -1431,7 +1435,7 @@ function openCommunityPreview(cp) {
   importBtn.addEventListener("click", () => {
     if (!isImported) {
       importCommunityPrompt(cp);
-      importBtn.textContent = "✓ Added";
+      importBtn.innerHTML = '<i data-lucide="check" class="icon-sm"></i> Added';
       importBtn.disabled = true;
       importBtn.style.background = "#4caf50";
       importBtn.style.opacity = "0.7";

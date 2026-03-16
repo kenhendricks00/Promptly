@@ -208,6 +208,27 @@ button {
   color: var(--text-main);
   font-family: inherit;
   font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Lucide Icon Defaults */
+.lucide {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.5;
+  flex-shrink: 0;
+}
+
+.icon-sm {
+  width: 13px;
+  height: 13px;
+}
+
+.icon-lg {
+  width: 18px;
+  height: 18px;
 }
 
 .icon-btn {
@@ -745,6 +766,9 @@ button {
   border: 1px solid var(--glass-border);
   background: var(--input-bg);
   color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .glass-btn:hover {
@@ -885,6 +909,9 @@ button {
   border: none;
   padding: 4px 8px;
   transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .text-btn:hover {
@@ -1012,6 +1039,9 @@ button {
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .category-pill:hover,
@@ -1022,7 +1052,8 @@ button {
 }
 
 .category-pill .cat-icon {
-  margin-right: 3px;
+  display: flex;
+  align-items: center;
 }
 
 /* Loading */
@@ -1156,6 +1187,7 @@ button {
   display: flex;
   gap: 6px;
   flex-shrink: 0;
+  align-items: center;
 }
 
 .community-add-btn {
