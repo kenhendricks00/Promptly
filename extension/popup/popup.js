@@ -58,6 +58,12 @@ const historyCloseBtn = document.getElementById("history-close-btn");
 
 // Move modal
 const moveModal = document.getElementById("move-modal");
+
+// Import Confirmation Modal
+const importConfirmModal = document.getElementById("import-confirm-modal");
+const importPreview = document.getElementById("import-preview");
+const importCancelBtn = document.getElementById("import-cancel-btn");
+const importConfirmBtn = document.getElementById("import-confirm-btn");
 const moveFolderSelect = document.getElementById("move-folder-select");
 const moveCancelBtn = document.getElementById("move-cancel-btn");
 const moveConfirmBtn = document.getElementById("move-confirm-btn");
@@ -96,6 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   checkOnboarding();
   renderAll();
   setupKeyboardNav();
+  checkIncomingImport();
 });
 
 async function loadAll() {
@@ -416,15 +423,17 @@ function renderPrompts() {
 
     const shareBtn = document.createElement("button");
     shareBtn.className = "action-btn";
-    shareBtn.textContent = "Share";
+    shareBtn.innerHTML = '<i data-lucide="share-2" class="icon-sm"></i>';
+    shareBtn.title = "Share Prompt";
     shareBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      openShareModal(prompt);
+      sharePrompt(prompt);
     });
 
     const editBtnEl = document.createElement("button");
     editBtnEl.className = "action-btn";
-    editBtnEl.textContent = "Edit";
+    editBtnEl.innerHTML = '<i data-lucide="edit-3" class="icon-sm"></i>';
+    editBtnEl.title = "Edit Prompt";
     editBtnEl.addEventListener("click", (e) => {
       e.stopPropagation();
       openModal(prompt);
@@ -432,7 +441,8 @@ function renderPrompts() {
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "action-btn delete";
-    deleteBtn.textContent = "Delete";
+    deleteBtn.innerHTML = '<i data-lucide="trash-2" class="icon-sm"></i>';
+    deleteBtn.title = "Delete Prompt";
     deleteBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (confirm("Delete this prompt?")) {
@@ -1462,3 +1472,92 @@ function openCommunityPreview(cp) {
 
   document.body.appendChild(previewModal);
 }
+
+// ─── SHARING & IMPORT ──────────────────────────────────
+function sharePrompt(prompt) {
+  try {
+    const data = {
+      title: prompt.title,
+      body: prompt.body,
+      tags: prompt.tags || [],
+    };
+    const json = JSON.stringify(data);
+    const b64 = btoa(unescape(encodeURIComponent(json)));
+    const shareUrl = `https://ken.tools/promptly/#import=${b64}`;
+
+    copyToClipboard(shareUrl, "Share Link");
+    showToast("Share link copied to clipboard!");
+  } catch (err) {
+    console.error("Sharing failed", err);
+    showToast("Failed to generate share link");
+  }
+}
+
+async function checkIncomingImport() {
+  try {
+    const [tab] = await browser.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+    if (!tab || !tab.url) return;
+
+    const url = new URL(tab.url);
+    const hash = url.hash;
+    if (hash && hash.includes("import=")) {
+      const b64 = hash.split("import=")[1];
+      const data = decodePrompt(b64);
+      if (data) {
+        showImportConfirm(data);
+      }
+    }
+  } catch (err) {
+    console.error("Import check failed", err);
+  }
+}
+
+function decodePrompt(base64) {
+  try {
+    const json = decodeURIComponent(escape(atob(base64)));
+    return JSON.parse(json);
+  } catch (e) {
+    return null;
+  }
+}
+
+let pendingImportData = null;
+
+function showImportConfirm(data) {
+  pendingImportData = data;
+  importPreview.innerHTML = `
+    <div style="font-weight:700;margin-bottom:8px;color:var(--text-main);">${data.title}</div>
+    <div style="font-size:11px;color:var(--text-muted);white-space:pre-wrap;">${data.body}</div>
+  `;
+  importConfirmModal.classList.remove("hidden");
+}
+
+importCancelBtn.addEventListener("click", () => {
+  importConfirmModal.classList.add("hidden");
+  pendingImportData = null;
+});
+
+importConfirmBtn.addEventListener("click", () => {
+  if (pendingImportData) {
+    const newPrompt = {
+      id: Date.now().toString(),
+      title: pendingImportData.title,
+      body: pendingImportData.body,
+      tags: [...(pendingImportData.tags || []), "imported"],
+      folderId: "",
+      favorite: false,
+      useCount: 0,
+      createdAt: Date.now(),
+      history: [],
+    };
+    prompts.unshift(newPrompt);
+    saveAll();
+    renderAll();
+    showToast("Prompt imported successfully!");
+    importConfirmModal.classList.add("hidden");
+    pendingImportData = null;
+  }
+});
