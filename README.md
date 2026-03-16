@@ -18,8 +18,8 @@
 ***
 
 <p align="center">
-  <a href="https://addons.mozilla.org/en-US/firefox/addon/#"><img src="assets/firefox_addon_image.png" alt="Get Promptly for Firefox"></a>
-  <a href="https://chromewebstore.google.com/detail/#"><img src="assets/chrome_addon_image.png" alt="Get Promptly for Chrome"></a>
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/promptly-extension"><img src="assets/firefox_addon_image.png" alt="Get Promptly for Firefox"></a>
+  <a href="https://chromewebstore.google.com/detail/adgocmgggillofjplkffkfdpnhokhbjj"><img src="assets/chrome_addon_image.png" alt="Get Promptly for Chrome"></a>
 </div>
 
 ***
