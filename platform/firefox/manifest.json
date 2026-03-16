@@ -35,11 +35,14 @@
     }
   },
   "background": {
-    "scripts": ["background/service_worker.js"]
+    "scripts": [
+      "lib/browser-polyfill.js",
+      "background/service_worker.js"
+    ]
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "promptly@example.com",
+      "id": "promptly@ken.tools",
       "strict_min_version": "109.0"
     }
   }
