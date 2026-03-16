@@ -19,12 +19,13 @@
 ***
 
 # 🌟 Key Features
-- **Modern Glassmorphic UI**: High-fidelity frosted glass appearance with animated gradient backgrounds and a clean fallback dark mode layout.
-- **Search & Filter Flow**: Find prompts quickly by title or tag using the custom search bar.
-- **One-Click Copy**: Experience a seamless workflow; simply click a prompt item to copy it directly to your clipboard alongside a toast confirmation summary.
+- **Modern Glassmorphic UI**: High-fidelity frosted glass appearance with animated gradient backgrounds, powered by **Lucide Icons** for a crisp, professional look.
+- **Community Library**: Browse and import curated prompts directly into your personal collection with one click.
+- **Smart Sharing**: Generate permanent, client-side sharing links via `ken.tools` that allow others to import your prompts instantly.
+- **Search & Filter Flow**: Find prompts quickly by title or tag using the custom search bar and folder organization.
+- **One-Click Copy**: Simply click a prompt to copy it. Supports **{{variables}}** for dynamic template filling before copying.
 - **Data Portability**: Full Export and Import functionality allows you to backup you prompts as `.json` or sync them across devices.
-- **Fast CRUD Operations**: Effortlessly add, edit, or delete your personalized prompts in a floating modal interface.
-- **Privacy First**: Fully local operation using `browser.storage.local`. Promptly respects your privacy and does not transmit data externally.
+- **Privacy First**: Fully local operation using `browser.storage.local`. All sharing is client-side; no data is stored on external servers.
 - **Cross-Browser Core**: Uses `webextension-polyfill` over Manifest V3 ensuring uniform compatibility between Chrome (`chrome.*`) and Firefox (`browser.*`).
 
 # 📋 Usage Instructions
