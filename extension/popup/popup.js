@@ -1350,6 +1350,11 @@ function renderCommunityPrompts() {
 
     communityListEl.appendChild(item);
   });
+  
+  // Render icons
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
 }
 
 // Import a community prompt into local library
@@ -1471,6 +1476,11 @@ function openCommunityPreview(cp) {
   });
 
   document.body.appendChild(previewModal);
+
+  // Render icons
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
 }
 
 // ─── SHARING & IMPORT ──────────────────────────────────
