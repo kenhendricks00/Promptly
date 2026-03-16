@@ -35,8 +35,7 @@
     }
   },
   "background": {
-    "service_worker": "background/service_worker.js",
-    "scripts": ["background/service_worker.js"]
+    "service_worker": "background/service_worker.js"
   },
   "browser_specific_settings": {
     "gecko": {
