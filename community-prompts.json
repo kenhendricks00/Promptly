@@ -5,32 +5,32 @@
     {
       "id": "coding",
       "name": "Coding",
-      "icon": "💻"
+      "icon": "code"
     },
     {
       "id": "writing",
       "name": "Writing",
-      "icon": "✍️"
+      "icon": "pen-tool"
     },
     {
       "id": "productivity",
       "name": "Productivity",
-      "icon": "⚡"
+      "icon": "zap"
     },
     {
       "id": "learning",
       "name": "Learning",
-      "icon": "📚"
+      "icon": "book-open"
     },
     {
       "id": "creative",
       "name": "Creative",
-      "icon": "🎨"
+      "icon": "palette"
     },
     {
       "id": "business",
       "name": "Business",
-      "icon": "💼"
+      "icon": "briefcase"
     }
   ],
   "prompts": [

@@ -82,6 +82,11 @@ const toast = document.getElementById("toast");
 
 // ─── INIT ──────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", async () => {
+  if (window.lucide) {
+    const observer = new MutationObserver(() => lucide.createIcons());
+    observer.observe(document.body, { childList: true, subtree: true });
+    lucide.createIcons();
+  }
   await loadAll();
   applyTheme();
   checkOnboarding();
@@ -139,13 +144,13 @@ function renderAll() {
 function applyTheme() {
   if (themeOverride) {
     document.documentElement.setAttribute("data-theme", themeOverride);
-    themeToggle.textContent = themeOverride === "dark" ? "☀️" : "🌙";
+    themeToggle.innerHTML = themeOverride === "dark" ? '<i data-lucide="sun"></i>' : '<i data-lucide="moon"></i>';
   } else {
     document.documentElement.removeAttribute("data-theme");
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
-    themeToggle.textContent = prefersDark ? "☀️" : "🌙";
+    themeToggle.innerHTML = prefersDark ? '<i data-lucide="sun"></i>' : '<i data-lucide="moon"></i>';
   }
 }
 
@@ -393,7 +398,7 @@ function renderPrompts() {
     if (prompt.favorite) {
       const star = document.createElement("span");
       star.className = "favorite-star";
-      star.textContent = "⭐";
+      star.innerHTML = '<i data-lucide="star" class="icon-sm" style="width: 14px; height: 14px;"></i>';
       titleRow.appendChild(star);
     }
 
@@ -1196,7 +1201,7 @@ function renderCommunityCategories() {
   const allPill = document.createElement("button");
   allPill.className =
     "category-pill" + (communityCategory === "all" ? " active" : "");
-  allPill.innerHTML = '<span class="cat-icon">📁</span> All';
+  allPill.innerHTML = '<span class="cat-icon"><i data-lucide="folder" class="icon-sm" style="width: 14px; height: 14px;"></i></span> All';
   allPill.addEventListener("click", () => {
     communityCategory = "all";
     renderCommunityCategories();
@@ -1209,7 +1214,7 @@ function renderCommunityCategories() {
     pill.className =
       "category-pill" +
       (communityCategory === cat.id ? " active" : "");
-    pill.innerHTML = `<span class="cat-icon">${cat.icon}</span> ${cat.name}`;
+    pill.innerHTML = `<span class="cat-icon"><i data-lucide="${cat.icon}" class="icon-sm" style="width: 14px; height: 14px;"></i></span> ${cat.name}`;
     pill.addEventListener("click", () => {
       communityCategory = cat.id;
       renderCommunityCategories();
