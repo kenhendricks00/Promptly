@@ -1202,6 +1202,9 @@ button {
   transition: all 0.2s;
   box-shadow: 0 2px 8px rgba(67, 97, 238, 0.25);
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .community-add-btn:hover {
@@ -1231,6 +1234,9 @@ button {
   border: 1px solid var(--glass-border);
   cursor: pointer;
   transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .community-preview-btn:hover {
