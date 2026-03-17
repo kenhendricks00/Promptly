@@ -141,6 +141,123 @@
       "category": "business",
       "author": "kenhendricks00",
       "downloads": 0
+    },
+    {
+      "id": "community-013",
+      "title": "API Documentation Writer",
+      "body": "Generate clear, developer-friendly documentation for the following {{language}} API endpoint/function:\n\n```\n{{code}}\n```\n\n**Documentation style:** {{style}} (e.g., JSDoc, OpenAPI, Markdown)\n\nInclude:\n1. **Overview** — What this API does in 1-2 sentences\n2. **Parameters** — Name, type, required/optional, description\n3. **Return Value** — Type and structure of the response\n4. **Error Codes** — Possible errors and their meanings\n5. **Example Request & Response** — A real-world usage example\n6. **Notes** — Edge cases, rate limits, or other gotchas",
+      "tags": ["coding", "documentation", "api"],
+      "category": "coding",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-014",
+      "title": "Résumé Bullet Enhancer",
+      "body": "Rewrite the following résumé bullet points to be more impactful and ATS-friendly.\n\n**Role/Industry:** {{role}}\n**Original bullets:**\n{{bullets}}\n\nFor each bullet:\n1. Start with a strong action verb\n2. Quantify results wherever possible (%, $, time saved, etc.)\n3. Highlight the impact, not just the task\n4. Keep it under 2 lines\n\nProvide the original and improved version side by side, with a brief note explaining each change.",
+      "tags": ["business", "career", "writing"],
+      "category": "business",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-015",
+      "title": "SQL Query Builder",
+      "body": "Write an optimized SQL query for the following requirement:\n\n**Database:** {{database}} (e.g., PostgreSQL, MySQL, SQLite)\n**Task description:** {{task}}\n**Relevant tables/schema:**\n```\n{{schema}}\n```\n\nPlease:\n1. Write the SQL query\n2. Explain what each clause does\n3. Suggest any indexes that would improve performance\n4. Note any edge cases to watch out for\n5. Provide an alternative approach if one exists",
+      "tags": ["coding", "sql", "database"],
+      "category": "coding",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-016",
+      "title": "Flashcard Generator",
+      "body": "Create {{count}} study flashcards for the following topic:\n\n**Topic:** {{topic}}\n**Difficulty level:** {{level}} (beginner / intermediate / advanced)\n**Format:** {{format}} (Q&A / fill-in-the-blank / true-false)\n\nFor each flashcard:\n- **Front:** A clear, concise question or prompt\n- **Back:** A complete but brief answer (include a memory tip or mnemonic where helpful)\n\nGroup the flashcards into logical subtopics and order them from foundational to advanced.",
+      "tags": ["learning", "study", "flashcards"],
+      "category": "learning",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-017",
+      "title": "System Design Outline",
+      "body": "Help me design a high-level system architecture for the following:\n\n**Project:** {{project}}\n**Scale:** {{scale}} (e.g., 1k users, 1M users)\n**Key requirements:** {{requirements}}\n\nCover:\n1. **Core Components** — Services, databases, queues, caches\n2. **Data Flow** — How data moves through the system\n3. **Database Design** — SQL vs NoSQL recommendation and why\n4. **Scalability** — How the system handles growth\n5. **Bottlenecks & Trade-offs** — Known weak points and alternatives\n6. **Tech Stack Suggestions** — With justification for each choice",
+      "tags": ["coding", "system-design", "architecture"],
+      "category": "coding",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-018",
+      "title": "Daily Planner Builder",
+      "body": "Build me a structured daily plan based on the following:\n\n**Date/Day:** {{date}}\n**Top priorities:** {{priorities}}\n**Available hours:** {{hours}}\n**Energy pattern:** {{energy}} (e.g., morning person, afternoon peak)\n**Commitments/fixed events:** {{fixed}}\n\nOutput:\n1. **Morning Routine** — A focused start to the day\n2. **Time-blocked schedule** — Tasks mapped to specific time slots\n3. **Deep work blocks** — Protected focus time for high-priority tasks\n4. **Buffer time** — Built-in breaks and recovery\n5. **Evening wind-down** — Reflection and prep for tomorrow\n\nKeep it realistic — don't over-schedule.",
+      "tags": ["productivity", "planning", "time-management"],
+      "category": "productivity",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-019",
+      "title": "Concept Comparator",
+      "body": "Compare and contrast the following concepts clearly and thoroughly:\n\n**Concept A:** {{conceptA}}\n**Concept B:** {{conceptB}}\n**Context/Field:** {{field}}\n\nProvide:\n1. **Quick Summary** — One-sentence definition of each\n2. **Similarities** — What they have in common\n3. **Key Differences** — A side-by-side comparison table\n4. **When to use each** — Real-world scenarios for both\n5. **Common misconceptions** — What people often get wrong\n6. **Verdict** — A recommendation based on use case",
+      "tags": ["learning", "comparison", "explanation"],
+      "category": "learning",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-020",
+      "title": "Cold Outreach Message",
+      "body": "Write a compelling cold outreach message for the following scenario:\n\n**Platform:** {{platform}} (e.g., LinkedIn, email, Twitter/X)\n**My role/background:** {{background}}\n**Recipient's profile:** {{recipient}}\n**Goal of outreach:** {{goal}} (e.g., job opportunity, collaboration, advice)\n**Mutual connection or hook:** {{hook}}\n\nThe message should:\n- Be concise (under {{wordLimit}} words)\n- Lead with value or genuine curiosity, not a request\n- Feel human — not templated or salesy\n- Include one clear, low-friction call-to-action\n- Have a subject line if email\n\nProvide 2 variations: one formal, one casual.",
+      "tags": ["business", "networking", "communication"],
+      "category": "business",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-021",
+      "title": "Regex Pattern Builder",
+      "body": "Create a regular expression for the following requirement:\n\n**Language/Engine:** {{language}} (e.g., JavaScript, Python, PCRE)\n**What to match:** {{description}}\n**Examples of valid matches:**\n{{valid}}\n**Examples that should NOT match:**\n{{invalid}}\n\nProvide:\n1. The regex pattern\n2. A breakdown of each component (what each part does)\n3. Any flags needed (e.g., case-insensitive, multiline)\n4. A code snippet showing how to use it in {{language}}\n5. Known edge cases or limitations",
+      "tags": ["coding", "regex", "utilities"],
+      "category": "coding",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-022",
+      "title": "Product Landing Page Copy",
+      "body": "Write persuasive landing page copy for the following product:\n\n**Product name:** {{product}}\n**What it does:** {{description}}\n**Target audience:** {{audience}}\n**Key benefits:** {{benefits}}\n**Tone:** {{tone}} (e.g., bold, friendly, minimalist, energetic)\n\nInclude:\n1. **Hero Headline** — Clear, punchy, benefit-driven\n2. **Subheadline** — One sentence expanding on the headline\n3. **Feature/Benefit Sections** — 3-4 sections with headers and body copy\n4. **Social Proof Block** — 2 sample testimonials\n5. **FAQ Section** — 3 common questions with answers\n6. **CTA Button Text** — 3 options to test\n\nWrite copy that converts, not just impresses.",
+      "tags": ["business", "marketing", "copywriting"],
+      "category": "business",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-023",
+      "title": "Habit Tracker Designer",
+      "body": "Help me design a personalized habit tracking system:\n\n**Habits I want to build:** {{habits}}\n**Habits I want to break:** {{badHabits}}\n**My biggest struggle:** {{struggle}} (e.g., consistency, motivation, forgetting)\n**Preferred tracking style:** {{style}} (e.g., digital, paper, minimal)\n\nProvide:\n1. **Habit Stack** — Link new habits to existing routines\n2. **Implementation Intentions** — Specific when/where/how for each habit\n3. **Tracking Template** — A simple daily/weekly tracker layout\n4. **Streak Strategy** — How to maintain and recover from broken streaks\n5. **Review System** — A weekly check-in process\n6. **Warning Signs** — Early signs you're losing momentum and what to do",
+      "tags": ["productivity", "habits", "self-improvement"],
+      "category": "productivity",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-024",
+      "title": "World Builder",
+      "body": "Help me build a fictional world for my {{medium}} (novel, game, screenplay, etc.).\n\n**Genre:** {{genre}}\n**Tone:** {{tone}} (e.g., dark, whimsical, gritty, hopeful)\n**Core concept or hook:** {{concept}}\n\nDevelop:\n1. **Geography** — Landscape, climate zones, notable locations\n2. **Society & Culture** — Social structure, customs, values\n3. **History** — A brief timeline of key events that shaped this world\n4. **Power Systems** — Government, magic, technology, or economy\n5. **Factions** — 2-3 groups with conflicting goals\n6. **Hooks & Mysteries** — Unanswered questions to drive narrative tension\n\nMake it feel lived-in and internally consistent.",
+      "tags": ["creative", "worldbuilding", "fiction"],
+      "category": "creative",
+      "author": "kenhendricks00",
+      "downloads": 0
+    },
+    {
+      "id": "community-025",
+      "title": "Humanizer",
+      "body": "Rewrite the following text to sound natural, warm, and authentically human — like it was written by a real person, not an AI.\n\n**Text to humanize:**\n{{text}}\n\n**Desired tone:** {{tone}} (e.g., casual, professional, conversational, friendly)\n**Intended audience:** {{audience}}\n**Context/purpose:** {{context}} (e.g., blog post, email, social media, essay)\n\nGuidelines:\n- Vary sentence length — mix short punchy sentences with longer ones\n- Use natural transitions and conversational connectors\n- Add personality, wit, or warmth where appropriate\n- Remove robotic filler phrases (e.g., \"In conclusion\", \"It is important to note\", \"Certainly!\")\n- Avoid overly perfect structure — real writing has flow, not just format\n- Preserve the original meaning and key points\n- Match the voice to the audience and context\n\nProvide the rewritten version only, with no commentary.",
+      "tags": ["writing", "humanizer", "ai-text"],
+      "category": "writing",
+      "author": "kenhendricks00",
+      "downloads": 0
     }
   ]
 }
